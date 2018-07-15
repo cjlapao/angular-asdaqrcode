@@ -22,4 +22,4 @@ Just clone the project and then run `ng build`, this will create a folder called
 
 # Live Example
 
-You can see this working on <http://container.ittech24.co.uk|ittech24.co.uk Container>
+You can see this working on [ittech24.co.uk Containers](http://container.ittech24.co.uk)
