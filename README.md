@@ -1,27 +1,25 @@
-# QRCode
+# ASDA Parking QRCode
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+This is a learning project done in angular2 that demonstrate the generation of a QRCode to be used on the asda car park.
+*Attention* this is only a demo test and should not be used in real life
 
-## Development server
+# What's New
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## 1.0.2
+* Added the logo of asda in base64
+* trimmed the text
 
-## Code scaffolding
+## 1.0.1
+* Added the time generation on the bottom
+* Added some new text
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 1.0.0
+* Added the generation of the barcode
 
-## Build
+# How to Use
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Just clone the project and then run `ng build`, this will create a folder called build and then just copy that one onto the server
 
-## Running unit tests
+# Live Example
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+You can see this working on <http://container.ittech24.co.uk|ittech24.co.uk Container>
