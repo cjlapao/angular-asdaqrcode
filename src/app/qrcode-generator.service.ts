@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { strict } from 'assert';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,9 @@ export class QRCodeGeneratorService {
   prefix: string;
   public stores: string[];
   public generatedString: string;
+  public days: string[];
+  public months: string[];
+  public years: string[];
 
   constructor() {
     this.prefix = 'ASDX';
@@ -127,5 +131,53 @@ export class QRCodeGeneratorService {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  getDays(): string[] {
+    let month: string;
+    let year: string;
+    month = $('#month').val() as string;
+    year = $('#year').val() as string;
+    if (month.toLowerCase() === 'now') {
+      month = new Date().getMonth().toString();
+    }
+    if (year.toLowerCase() === 'now') {
+      year = new Date().getFullYear().toString();
+    }
+    return this.generateDays(+month, +year);
+  }
+
+  generateMonths(): string[] {
+    let i: number;
+    let result: string[];
+    result = [];
+    for (i = 1; i < 13; i++) {
+      result.push(i.toString());
+    }
+    return result;
+  }
+
+  generateYears(): string[] {
+    let i: number;
+    let now: Date;
+    let result: string[];
+    result = [];
+    now = new Date();
+    for (i = 0; i < 4; i++) {
+      result.push((now.getFullYear() - i).toString());
+    }
+    return result;
+  }
+
+  generateDays(month: number, year: number): string[] {
+    let i: number;
+    let daysInMonth: number;
+    let result: string[];
+    result = [];
+    daysInMonth = new Date(year, month, 0).getDate();
+    for (i = 0; i < daysInMonth; i++) {
+      result.push((i + 1).toString());
+    }
+    return result;
   }
 }
