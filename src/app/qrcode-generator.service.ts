@@ -6,27 +6,45 @@ import { Injectable } from '@angular/core';
 
 export class QRCodeGeneratorService {
   prefix: string;
-  store: string[];
+  public stores: string[];
+  public generatedString: string;
 
   constructor() {
     this.prefix = 'ASDX';
-    this.store = ['2477'];
+    this.stores = ['2477', '2484', '2188'];
   }
 
-  private generateJulianDay(): number {
-    let now, start: any;
+  private generateJulianDay(day: any, month: any, year: any): string {
+    let now: any, start: any;
     now = new Date();
+    if (day.toLowerCase() !== 'now') {
+      now.setDate(day);
+    }
+    if (month.toLowerCase() !== 'now') {
+      now.setMonth(month - 1);
+    }
+    if (year.toLowerCase() !== 'now') {
+      now.setFullYear(year);
+    }
     start = new Date(now.getFullYear(), 0, 0);
     const diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
     const oneDay = 1000 * 60 * 60 * 24;
-    const day = Math.floor(diff / oneDay);
-    return day;
+    const newDay = Math.floor(diff / oneDay);
+    let dayStr: string;
+    dayStr = newDay.toString();
+    if (dayStr.length < 3) {
+      dayStr = '0' + dayStr;
+    }
+    return dayStr;
   }
 
-  private generateAsdaYear(): string {
+  private generateAsdaYear(year: any): string {
     const now = new Date();
-    const year = now.getFullYear().toString();
-    return year[3];
+    if (year.toLowerCase() !== 'now') {
+      now.setFullYear(year);
+    }
+    const yearResult = now.getFullYear().toString();
+    return yearResult[3];
   }
 
   private generateTime(): string {
@@ -73,12 +91,41 @@ export class QRCodeGeneratorService {
   }
 
   generate(): void {
+    let day: string;
+    let month: string;
+    let year: string;
+    let storeId: string;
+    let code: string;
     const container = $('#qrContainer');
+    const storeIdIndex = this.getRandomInt(0, this.stores.length - 1);
+    const storeIn = $('#storeId');
+
+    day = $('#day').val() as string;
+    month = $('#month').val() as string;
+    year = $('#year').val() as string;
     container.html('');
-    const code = this.prefix + this.store[0] +
-      this.generateAsdaYear() +
-      this.generateJulianDay() +
+
+    storeId = (storeIn.val() as string).toLowerCase();
+    if (storeId === 'random') {
+      storeId = this.stores[storeIdIndex];
+      if (storeId === undefined) {
+        storeId = this.stores[0];
+      }
+    }
+
+    code = this.prefix + storeId +
+      this.generateAsdaYear(year) +
+      this.generateJulianDay(day, month, year) +
       this.generateTime();
-    const qrcode = new QRCode(container[0], code);
+
+      const qrcode = new QRCode(container[0], code);
+
+      this.generatedString = code;
+  }
+
+  getRandomInt(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }

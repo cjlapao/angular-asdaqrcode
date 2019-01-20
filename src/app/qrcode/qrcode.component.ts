@@ -6,18 +6,24 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './qrcode.component.html',
   styleUrls: ['./qrcode.component.css']
 })
+
 export class QrcodeComponent implements OnInit {
   now: string;
+  stores: string[];
+  code: string;
 
   constructor(private qrCodeGenerator: QRCodeGeneratorService) { }
 
   ngOnInit() {
-    this.now = this.qrCodeGenerator.getDateNow();
+    this.stores = this.qrCodeGenerator.stores;
     this.qrCodeGenerator.generate();
+    this.now = this.qrCodeGenerator.getDateNow();
+    this.code = this.qrCodeGenerator.generatedString;
   }
 
   onGenerate(): void {
-    this.now = this.qrCodeGenerator.getDateNow();
     this.qrCodeGenerator.generate();
+    this.now = this.qrCodeGenerator.getDateNow();
+    this.code = this.qrCodeGenerator.generatedString;
   }
 }

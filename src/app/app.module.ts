@@ -15,4 +15,6 @@ import { QrcodeComponent } from './qrcode/qrcode.component';
   providers: [],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule { }
